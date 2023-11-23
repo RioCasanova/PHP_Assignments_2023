@@ -65,13 +65,13 @@ function count_records_decade()
 #endregion
 
 #region CHARACTER
-function find_by_character($limit = 0, $offset = 0, $character)
+function find_by_publisher($limit = 0, $offset = 0, $publisher)
 {
     global $connection;
-    $sql = "SELECT title, writer, artist, characters 
+    $sql = "SELECT title, writer, artist, publisher 
             FROM lab05_comic_books 
-            WHERE year LIKE '%$character%'
-            ORDER BY characters DESC";
+            WHERE year LIKE '%$publisher%'
+            ORDER BY publisher DESC";
 
     if ($limit > 0) {
         $sql .= " LIMIT " . $limit;

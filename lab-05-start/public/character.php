@@ -4,12 +4,12 @@
 
 $title = "The Comic Chronicler";
 include('includes/header.php');
-$character = isset($_GET['character']) ? $_GET['character'] : "";
+$publisher = isset($_GET['publisher']) ? $_GET['publisher'] : "";
 
 #region PAGINATION SETUP
 
-// only using this if character has not been chosen
-if (!$character) {
+// only using this if publisher has not been chosen
+if (!$publisher) {
     $per_page = 20; // number of results per page
     $total_count = count_records(); // Number of records total
     $total_pages = ceil($total_count / $per_page); // rounds up to an integer
@@ -39,212 +39,212 @@ if (!$character) {
 
         <!-- Introduction -->
         <div class="row justify-content-center col-md-10 col-lg-8 col-xxl-6 mb-4">
-            <h2 class="display-4">Browse by <span class="text-danger">Character</span></h2>
-            <p>Click any of the buttons below to browse the titles in our database by Character</p>
+            <h2 class="display-4">Browse by <span class="text-danger">Publisher</span></h2>
+            <p>Click any of the buttons below to browse the titles in our database by Publisher</p>
         </div>
         <!-- Selection of decades -->
         <div class="text-center mb-4">
-            <?php if ($character == 'Spider-Man') { ?>
+            <?php if ($publisher == 'Marvel Comics') { ?>
                 <button class="btn btn-outline-danger active m-2">
-                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?character=Spider-Man"
-                        class="text-decoration-none  text-reset">Spider-Man</a>
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?publisher=Marvel%20Comics"
+                        class="text-decoration-none  text-reset">Marvel Comics</a>
                 </button>
             <?php } else { ?>
                 <button class="btn btn-outline-danger m-2">
-                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?character=Spider-Man"
-                        class="text-decoration-none  text-reset">Spider-Man</a>
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?publisher=Marvel%20Comics"
+                        class="text-decoration-none  text-reset">Marvel Comics</a>
                 </button>
             <?php } ?>
-            <?php if ($character == 'Batman') { ?>
+            <?php if ($publisher == 'Batman') { ?>
                 <button class="btn btn-outline-danger active m-2">
-                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?$character=Batman"
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?publisher=Batman"
                         class="text-decoration-none text-reset">
                         Batman</a>
                 </button>
             <?php } else { ?>
                 <button class="btn btn-outline-danger m-2">
-                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?$character=Batman"
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?publisher=Batman"
                         class="text-decoration-none text-reset">
                         Batman</a>
                 </button>
             <?php } ?>
-            <?php if ($character == 'Death') { ?>
+            <?php if ($publisher == 'Death') { ?>
                 <button class="btn btn-outline-danger active m-2">
-                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?$character=Death"
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?publisher=Death"
                         class="text-decoration-none text-reset">Death</a>
                 </button>
             <?php } else { ?>
                 <button class="btn btn-outline-danger m-2">
-                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?$character=Death"
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?publisher=Death"
                         class="text-decoration-none text-reset">Death</a>
                 </button>
             <?php } ?>
-            <?php if ($character == 'Jean Grey') { ?>
+            <?php if ($publisher == 'Jean Grey') { ?>
                 <button class="btn btn-outline-danger active m-2">
-                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?$character=Jean%20Grey"
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?publisher=Jean%20Grey"
                         class="text-decoration-none text-reset">Jean Grey</a>
                 </button>
             <?php } else { ?>
                 <button class="btn btn-outline-danger m-2">
-                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?$character=Jean%20Grey"
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?publisher=Jean%20Grey"
                         class="text-decoration-none text-reset">Jean Grey</a>
                 </button>
             <?php } ?>
-            <?php if ($character == 'Rick Grimes') { ?>
+            <?php if ($publisher == 'Rick Grimes') { ?>
                 <button class="btn btn-outline-danger active m-2">
-                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?$character=Rick%20Grimes"
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?publisher=Rick%20Grimes"
                         class="text-decoration-none text-reset">Rick Grimes</a>
                 </button>
             <?php } else { ?>
                 <button class="btn btn-outline-danger m-2">
-                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?$character=Rick%20Grimes"
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?publisher=Rick%20Grimes"
                         class="text-decoration-none text-reset">Rick Grimes</a>
                 </button>
             <?php } ?>
-            <?php if ($character == 'Iron Man') { ?>
+            <?php if ($publisher == 'Iron Man') { ?>
                 <button class="btn btn-outline-danger active m-2">
-                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?$character=Iron%20Man"
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?publisher=Iron%20Man"
                         class="text-decoration-none text-reset">Iron Man</a>
                 </button>
             <?php } else { ?>
                 <button class="btn btn-outline-danger m-2">
-                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?$character=Iron%20Man"
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?publisher=Iron%20Man"
                         class="text-decoration-none text-reset">Iron Man</a>
                 </button>
             <?php } ?>
-            <?php if ($character == 'Spider-Man') { ?>
+            <?php if ($publisher == 'Wonder Woman') { ?>
                 <button class="btn btn-outline-danger active m-2">
-                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?$character=196"
-                        class="text-decoration-none  text-reset">1960</a>
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?publisher=Wonder%20Woman"
+                        class="text-decoration-none  text-reset">Wonder Woman</a>
                 </button>
             <?php } else { ?>
                 <button class="btn btn-outline-danger m-2">
-                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?$character=196"
-                        class="text-decoration-none  text-reset">1960</a>
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?publisher=Wonder%20Woman"
+                        class="text-decoration-none  text-reset">Wonder Woman</a>
                 </button>
             <?php } ?>
-            <?php if ($character == 'Spider-Man') { ?>
+            <?php if ($publisher == 'Spider-Man') { ?>
                 <button class="btn btn-outline-danger active m-2">
-                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?$character=197"
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?publisher=197"
                         class="text-decoration-none text-reset">
                         1970</a>
                 </button>
             <?php } else { ?>
                 <button class="btn btn-outline-danger m-2">
-                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?$character=197"
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?publisher=197"
                         class="text-decoration-none text-reset">
                         1970</a>
                 </button>
             <?php } ?>
-            <?php if ($character == 'Spider-Man') { ?>
+            <?php if ($publisher == 'Spider-Man') { ?>
                 <button class="btn btn-outline-danger active m-2">
-                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?$character=198"
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?publisher=198"
                         class="text-decoration-none text-reset">1980</a>
                 </button>
             <?php } else { ?>
                 <button class="btn btn-outline-danger m-2">
-                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?$character=198"
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?publisher=198"
                         class="text-decoration-none text-reset">1980</a>
                 </button>
             <?php } ?>
-            <?php if ($character == 'Spider-Man') { ?>
+            <?php if ($publisher == 'Spider-Man') { ?>
                 <button class="btn btn-outline-danger active m-2">
-                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?$character=199"
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?publisher=199"
                         class="text-decoration-none text-reset">1990</a>
                 </button>
             <?php } else { ?>
                 <button class="btn btn-outline-danger m-2">
-                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?$character=199"
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?publisher=199"
                         class="text-decoration-none text-reset">1990</a>
                 </button>
             <?php } ?>
-            <?php if ($character == 'Spider-Man') { ?>
+            <?php if ($publisher == 'Spider-Man') { ?>
                 <button class="btn btn-outline-danger active m-2">
-                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?$character=200"
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?publisher=200"
                         class="text-decoration-none text-reset">2000</a>
                 </button>
             <?php } else { ?>
                 <button class="btn btn-outline-danger m-2">
-                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?$character=200"
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?publisher=200"
                         class="text-decoration-none text-reset">2000</a>
                 </button>
             <?php } ?>
-            <?php if ($character == 'Spider-Man') { ?>
+            <?php if ($publisher == 'Spider-Man') { ?>
                 <button class="btn btn-outline-danger active m-2">
-                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?$character=201"
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?publisher=201"
                         class="text-decoration-none text-reset">2010</a>
                 </button>
             <?php } else { ?>
                 <button class="btn btn-outline-danger m-2">
-                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?$character=201"
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?publisher=201"
                         class="text-decoration-none text-reset">2010</a>
                 </button>
             <?php } ?>
-            <?php if ($character == 'Spider-Man') { ?>
+            <?php if ($publisher == 'Spider-Man') { ?>
                 <button class="btn btn-outline-danger active m-2">
-                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?$character=196"
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?publisher=196"
                         class="text-decoration-none  text-reset">1960</a>
                 </button>
             <?php } else { ?>
                 <button class="btn btn-outline-danger m-2">
-                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?$character=196"
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?publisher=196"
                         class="text-decoration-none  text-reset">1960</a>
                 </button>
             <?php } ?>
-            <?php if ($character == 'Spider-Man') { ?>
+            <?php if ($publisher == 'Spider-Man') { ?>
                 <button class="btn btn-outline-danger active m-2">
-                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?$character=197"
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?publisher=197"
                         class="text-decoration-none text-reset">
                         1970</a>
                 </button>
             <?php } else { ?>
                 <button class="btn btn-outline-danger m-2">
-                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?$character=197"
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?publisher=197"
                         class="text-decoration-none text-reset">
                         1970</a>
                 </button>
             <?php } ?>
-            <?php if ($character == 'Spider-Man') { ?>
+            <?php if ($publisher == 'Spider-Man') { ?>
                 <button class="btn btn-outline-danger active m-2">
-                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?$character=198"
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?publisher=198"
                         class="text-decoration-none text-reset">1980</a>
                 </button>
             <?php } else { ?>
                 <button class="btn btn-outline-danger m-2">
-                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?$character=198"
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?publisher=198"
                         class="text-decoration-none text-reset">1980</a>
                 </button>
             <?php } ?>
-            <?php if ($character == 'Spider-Man') { ?>
+            <?php if ($publisher == 'Spider-Man') { ?>
                 <button class="btn btn-outline-danger active m-2">
-                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?$character=199"
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?publisher=199"
                         class="text-decoration-none text-reset">1990</a>
                 </button>
             <?php } else { ?>
                 <button class="btn btn-outline-danger m-2">
-                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?$character=199"
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?publisher=199"
                         class="text-decoration-none text-reset">1990</a>
                 </button>
             <?php } ?>
-            <?php if ($character == 'Spider-Man') { ?>
+            <?php if ($publisher == 'Spider-Man') { ?>
                 <button class="btn btn-outline-danger active m-2">
-                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?$character=200"
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?publisher=200"
                         class="text-decoration-none text-reset">2000</a>
                 </button>
             <?php } else { ?>
                 <button class="btn btn-outline-danger m-2">
-                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?$character=200"
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?publisher=200"
                         class="text-decoration-none text-reset">2000</a>
                 </button>
             <?php } ?>
-            <?php if ($character == 'Spider-Man') { ?>
+            <?php if ($publisher == 'Spider-Man') { ?>
                 <button class="btn btn-outline-danger active m-2">
-                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?$character=201"
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?publisher=201"
                         class="text-decoration-none text-reset">2010</a>
                 </button>
             <?php } else { ?>
                 <button class="btn btn-outline-danger m-2">
-                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?$character=201"
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?publisher=201"
                         class="text-decoration-none text-reset">2010</a>
                 </button>
             <?php } ?>
@@ -259,7 +259,7 @@ if (!$character) {
             <?php
             // this is our query with the appended offset
             
-            $result = find_by_character($per_page, $offset, $character);
+            $result = find_by_publisher($per_page, $offset, $publisher);
 
             if ($connection->error) {
                 echo $connection->$error;
@@ -270,7 +270,7 @@ if (!$character) {
                     echo "<th scope=\"col\"><a href=\"#\"class=\"text-reset\">Title</a></th>";
                     echo "<th scope=\"col\"><a href=\"#\"class=\"text-reset\">Writer</a></th>";
                     echo "<th scope=\"col\"><a href=\"#\" class=\"text-reset\">Artist</a></th>";
-                    echo "<th scope=\"col\"><a href=\"#\" class=\"text-reset\">Year</a></th>";
+                    echo "<th scope=\"col\"><a href=\"#\" class=\"text-reset\">Publisher</a></th>";
                     echo "<th scope=\"col\" class=\"text-dark\">Actions</th>";
                     echo "</tr>";
                     while ($row = $result->fetch_assoc()) {
@@ -279,7 +279,7 @@ if (!$character) {
                                 <td>$title</td>
                                 <td>$writer</td>
                                 <td>$artist</td>
-                                <td>$year</td>
+                                <td>$publisher</td>
                                 <td><a href=\"#\" class=\"text-danger\">View</a></td>
                                 </tr>";
                     }
@@ -294,7 +294,7 @@ if (!$character) {
 
 
 
-    <?php if (!$character) {
+    <?php if (!$publisher) {
         include('includes/pagination.php');
     }
     ?>
