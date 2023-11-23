@@ -64,21 +64,14 @@ function count_records_decade()
 }
 #endregion
 
-#region CHARACTER
-function find_by_publisher($limit = 0, $offset = 0, $publisher)
+#region PUBLISHER
+function find_by_publisher($publisher)
 {
     global $connection;
     $sql = "SELECT title, writer, artist, publisher 
             FROM lab05_comic_books 
-            WHERE year LIKE '%$publisher%'
+            WHERE publisher LIKE '%$publisher%'
             ORDER BY publisher DESC";
-
-    if ($limit > 0) {
-        $sql .= " LIMIT " . $limit;
-    }
-    if ($offset > 0) {
-        $sql .= " OFFSET " . $offset;
-    }
 
     $result = $connection->query($sql);
     return $result;
@@ -87,12 +80,12 @@ function find_by_publisher($limit = 0, $offset = 0, $publisher)
 #endregion
 
 #region GENRE
-function find_by_genre($limit = 0, $offset = 0, $genre)
+function find_by_genre($limit = 0, $offset = 0, $category)
 {
     global $connection;
     $sql = "SELECT title, writer, artist, genre 
             FROM lab05_comic_books 
-            WHERE genre LIKE '%$genre%'
+            WHERE genre LIKE '%$category%'
             ORDER BY genre DESC";
 
     if ($limit > 0) {
@@ -105,14 +98,14 @@ function find_by_genre($limit = 0, $offset = 0, $genre)
     $result = $connection->query($sql);
     return $result;
 }
-function count_records_genre($genre)
+function count_records_genre()
 {
     global $connection;
-    // $genre = isset($_GET['genre']) ? $_GET['genre'] : "";
-    if (!$genre) {
+    $category = isset($_GET['genre']) ? $_GET['genre'] : "";
+    if (!$category) {
         $sql = "SELECT COUNT(*) FROM lab05_comic_books";
     } else {
-        $sql = "SELECT COUNT(*) FROM lab05_comic_books WHERE genre LIKE '%$genre%'";
+        $sql = "SELECT COUNT(*) FROM lab05_comic_books WHERE genre LIKE '%$category%'";
     }
 
     $results = mysqli_query($connection, $sql);

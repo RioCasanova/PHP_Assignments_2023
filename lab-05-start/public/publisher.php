@@ -204,17 +204,6 @@ if (!$publisher) {
                         Pantheon Books</a>
                 </button>
             <?php } ?>
-            <?php if ($publisher == 'Spider-Man') { ?>
-                <button class="btn btn-outline-danger active m-2">
-                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?publisher=198"
-                        class="text-decoration-none text-reset">1980</a>
-                </button>
-            <?php } else { ?>
-                <button class="btn btn-outline-danger m-2">
-                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?publisher=198"
-                        class="text-decoration-none text-reset">1980</a>
-                </button>
-            <?php } ?>
             <?php if ($publisher == 'Boom! Studios') { ?>
                 <button class="btn btn-outline-danger active m-2">
                     <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?publisher=Boom! Studios"
@@ -324,8 +313,12 @@ if (!$publisher) {
         <div class="col-md-10 col-lg-8">
             <?php
             // this is our query with the appended offset
-            
-            $result = find_by_publisher($per_page, $offset, $publisher);
+            if ($publisher) {
+                $result = find_by_publisher($publisher);
+            } else {
+                $result = find_records($per_page, $offset);
+            }
+
 
             if ($connection->error) {
                 echo $connection->$error;

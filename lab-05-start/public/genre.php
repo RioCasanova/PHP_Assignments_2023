@@ -3,11 +3,13 @@
 <?php
 
 $title = "The Comic Chronicler";
-$genre = isset($_GET['genre']) ? $_GET['genre'] : "";
+$category = isset($_GET['genre']) ? $_GET['genre'] : "";
 
 // There was an issue with pagination and getting Superhero records -- this fixes the issue (patch*)
-if ($genre) {
-    $genre = str_contains($genre, 'Superhero') == true ? 'Superhero' : $_GET['genre'];
+if ($category) {
+    $category = str_contains($category, 'Superhero') == true ? 'Superhero' : $_GET['genre'];
+} else {
+    $category = "";
 }
 
 
@@ -18,7 +20,7 @@ include('includes/header.php');
 
 
 $per_page = 20;
-$total_count = count_records_genre($genre); // Number of records total
+$total_count = count_records_genre(); // Number of records total
 $total_pages = ceil($total_count / $per_page); // rounds up to an integer
 $current_page = (int) ($_GET['page'] ?? 1); // making sure it isnt null
 
@@ -29,7 +31,6 @@ if ($current_page < 1 || $current_page > $total_pages || !is_int($current_page))
 // Offset: If we are grabbing 20 per page and the age is 2, we'll get records 21 - 40
 $offset = $per_page * ($current_page - 1);
 #endregion
-
 
 
 ?>
@@ -50,7 +51,7 @@ $offset = $per_page * ($current_page - 1);
 
         <!-- Selection of Genres -->
         <div class="text-center mb-4">
-            <?php if ($genre == 'Superhero') { ?>
+            <?php if ($category == 'Superhero') { ?>
                 <button class="btn btn-outline-danger active m-2">
                     <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Superhero"
                         class="text-decoration-none  text-reset">Superhero</a>
@@ -61,7 +62,7 @@ $offset = $per_page * ($current_page - 1);
                         class="text-decoration-none  text-reset">Superhero</a>
                 </button>
             <?php } ?>
-            <?php if ($genre == 'Horror') { ?>
+            <?php if ($category == 'Horror') { ?>
                 <button class="btn btn-outline-danger active m-2">
                     <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Horror"
                         class="text-decoration-none text-reset">
@@ -74,7 +75,7 @@ $offset = $per_page * ($current_page - 1);
                         Horror</a>
                 </button>
             <?php } ?>
-            <?php if ($genre == 'Drama') { ?>
+            <?php if ($category == 'Drama') { ?>
                 <button class="btn btn-outline-danger active m-2">
                     <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Drama"
                         class="text-decoration-none text-reset">Drama</a>
@@ -85,7 +86,7 @@ $offset = $per_page * ($current_page - 1);
                         class="text-decoration-none text-reset">Drama</a>
                 </button>
             <?php } ?>
-            <?php if ($genre == 'Science Fiction') { ?>
+            <?php if ($category == 'Science Fiction') { ?>
                 <button class="btn btn-outline-danger active m-2">
                     <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Science%20Fiction"
                         class="text-decoration-none text-reset">Science Fiction</a>
@@ -96,7 +97,7 @@ $offset = $per_page * ($current_page - 1);
                         class="text-decoration-none text-reset">Science Fiction</a>
                 </button>
             <?php } ?>
-            <?php if ($genre == 'Fantasy') { ?>
+            <?php if ($category == 'Fantasy') { ?>
                 <button class="btn btn-outline-danger active m-2">
                     <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Fantasy"
                         class="text-decoration-none text-reset">Fantasy</a>
@@ -107,7 +108,7 @@ $offset = $per_page * ($current_page - 1);
                         class="text-decoration-none text-reset">Fantasy</a>
                 </button>
             <?php } ?>
-            <?php if ($genre == 'Supernatural') { ?>
+            <?php if ($category == 'Supernatural') { ?>
                 <button class="btn btn-outline-danger active m-2">
                     <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Supernatural"
                         class="text-decoration-none text-reset">Supernatural</a>
@@ -118,7 +119,7 @@ $offset = $per_page * ($current_page - 1);
                         class="text-decoration-none text-reset">Supernatural</a>
                 </button>
             <?php } ?>
-            <?php if ($genre == 'Satire') { ?>
+            <?php if ($category == 'Satire') { ?>
                 <button class="btn btn-outline-danger active m-2">
                     <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Satire"
                         class="text-decoration-none text-reset">Satire</a>
@@ -129,7 +130,7 @@ $offset = $per_page * ($current_page - 1);
                         class="text-decoration-none text-reset">Satire</a>
                 </button>
             <?php } ?>
-            <?php if ($genre == 'Mystery') { ?>
+            <?php if ($category == 'Mystery') { ?>
                 <button class="btn btn-outline-danger active m-2">
                     <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Mystery"
                         class="text-decoration-none text-reset">Mystery</a>
@@ -140,7 +141,7 @@ $offset = $per_page * ($current_page - 1);
                         class="text-decoration-none text-reset">Mystery</a>
                 </button>
             <?php } ?>
-            <?php if ($genre == 'Psychological') { ?>
+            <?php if ($category == 'Psychological') { ?>
                 <button class="btn btn-outline-danger active m-2">
                     <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Psychological"
                         class="text-decoration-none text-reset">Psychological</a>
@@ -151,7 +152,7 @@ $offset = $per_page * ($current_page - 1);
                         class="text-decoration-none text-reset">Psychological</a>
                 </button>
             <?php } ?>
-            <?php if ($genre == 'Historical') { ?>
+            <?php if ($category == 'Historical') { ?>
                 <button class="btn btn-outline-danger active m-2">
                     <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Historical"
                         class="text-decoration-none text-reset">Historical</a>
@@ -162,7 +163,7 @@ $offset = $per_page * ($current_page - 1);
                         class="text-decoration-none text-reset">Historical</a>
                 </button>
             <?php } ?>
-            <?php if ($genre == 'Biography') { ?>
+            <?php if ($category == 'Biography') { ?>
                 <button class="btn btn-outline-danger active m-2">
                     <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Biography"
                         class="text-decoration-none text-reset">Biography</a>
@@ -173,7 +174,7 @@ $offset = $per_page * ($current_page - 1);
                         class="text-decoration-none text-reset">Biography</a>
                 </button>
             <?php } ?>
-            <?php if ($genre == 'Comedy') { ?>
+            <?php if ($category == 'Comedy') { ?>
                 <button class="btn btn-outline-danger active m-2">
                     <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Comedy"
                         class="text-decoration-none text-reset">Comedy</a>
@@ -184,7 +185,7 @@ $offset = $per_page * ($current_page - 1);
                         class="text-decoration-none text-reset">Comedy</a>
                 </button>
             <?php } ?>
-            <?php if ($genre == 'Noir') { ?>
+            <?php if ($category == 'Noir') { ?>
                 <button class="btn btn-outline-danger active m-2">
                     <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Noir"
                         class="text-decoration-none text-reset">Noir</a>
@@ -195,7 +196,7 @@ $offset = $per_page * ($current_page - 1);
                         class="text-decoration-none text-reset">Noir</a>
                 </button>
             <?php } ?>
-            <?php if ($genre == 'Crime') { ?>
+            <?php if ($category == 'Crime') { ?>
                 <button class="btn btn-outline-danger active m-2">
                     <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Crime"
                         class="text-decoration-none text-reset">Crime</a>
@@ -206,7 +207,7 @@ $offset = $per_page * ($current_page - 1);
                         class="text-decoration-none text-reset">Crime</a>
                 </button>
             <?php } ?>
-            <?php if ($genre == 'Adventure') { ?>
+            <?php if ($category == 'Adventure') { ?>
                 <button class="btn btn-outline-danger active m-2">
                     <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Adventure"
                         class="text-decoration-none text-reset">Adventure</a>
@@ -217,7 +218,7 @@ $offset = $per_page * ($current_page - 1);
                         class="text-decoration-none text-reset">Adventure</a>
                 </button>
             <?php } ?>
-            <?php if ($genre == 'Autobiography') { ?>
+            <?php if ($category == 'Autobiography') { ?>
                 <button class="btn btn-outline-danger active m-2">
                     <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Autobiography"
                         class="text-decoration-none text-reset">Autobiography</a>
@@ -228,7 +229,7 @@ $offset = $per_page * ($current_page - 1);
                         class="text-decoration-none text-reset">Autobiography</a>
                 </button>
             <?php } ?>
-            <?php if ($genre == 'Romance') { ?>
+            <?php if ($category == 'Romance') { ?>
                 <button class="btn btn-outline-danger active m-2">
                     <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Romance"
                         class="text-decoration-none text-reset">Romance</a>
@@ -239,7 +240,7 @@ $offset = $per_page * ($current_page - 1);
                         class="text-decoration-none text-reset">Romance</a>
                 </button>
             <?php } ?>
-            <?php if ($genre == 'Mature') { ?>
+            <?php if ($category == 'Mature') { ?>
                 <button class="btn btn-outline-danger active m-2">
                     <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Mature"
                         class="text-decoration-none text-reset">Mature</a>
@@ -250,7 +251,7 @@ $offset = $per_page * ($current_page - 1);
                         class="text-decoration-none text-reset">Mature</a>
                 </button>
             <?php } ?>
-            <?php if ($genre == 'Steampunk') { ?>
+            <?php if ($category == 'Steampunk') { ?>
                 <button class="btn btn-outline-danger active m-2">
                     <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Steampunk"
                         class="text-decoration-none text-reset">Steampunk</a>
@@ -261,7 +262,7 @@ $offset = $per_page * ($current_page - 1);
                         class="text-decoration-none text-reset">Steampunk</a>
                 </button>
             <?php } ?>
-            <?php if ($genre == 'Action') { ?>
+            <?php if ($category == 'Action') { ?>
                 <button class="btn btn-outline-danger active m-2">
                     <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Action"
                         class="text-decoration-none text-reset">Action</a>
@@ -280,8 +281,7 @@ $offset = $per_page * ($current_page - 1);
             <?php
             // this is our query with the appended offset
             
-            $result = find_by_genre($per_page, $offset, $genre);
-
+            $result = find_by_genre($per_page, $offset, $category);
             if ($connection->error) {
                 echo $connection->$error;
             } else {
@@ -320,7 +320,7 @@ $offset = $per_page * ($current_page - 1);
             <?php
             if ($current_page > 1): ?>
                 <li class="page-item">
-                    <a href="genre.php?genre=<?php echo $genre; ?>&page=<?php echo $current_page - 1 ?>"
+                    <a href="genre.php?genre=<?php echo $category; ?>&page=<?php echo $current_page - 1 ?>"
                         class="page-link text-danger">Previous</a>
                 </li>
             <?php endif ?>
@@ -349,7 +349,7 @@ $offset = $per_page * ($current_page - 1);
                     </li>
                 <?php else: ?>
                     <li class="page-item">
-                        <a href="genre.php?genre=<?php echo $genre; ?>&page=<?php echo $i; ?>" class="page-link text-danger">
+                        <a href="genre.php?genre=<?php echo $category; ?>&page=<?php echo $i; ?>" class="page-link text-danger">
                             <?php echo $i; ?>
                         </a>
                     </li>
@@ -359,7 +359,7 @@ $offset = $per_page * ($current_page - 1);
 
             if ($current_page < $total_pages): ?>
                 <li class="page-item">
-                    <a href="genre.php?genre=<?php echo $genre ?>&page=<?php echo $current_page + 1 ?>"
+                    <a href="genre.php?genre=<?php echo $category ?>&page=<?php echo $current_page + 1 ?>"
                         class="page-link text-danger">Next</a>
                 </li>
             <?php endif ?>

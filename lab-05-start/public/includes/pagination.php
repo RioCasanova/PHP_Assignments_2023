@@ -3,7 +3,8 @@
         <?php
         if ($current_page > 1): ?>
             <li class="page-item">
-                <a href="index.php?page=<?php echo $current_page - 1 ?>" class="page-link text-danger">Previous</a>
+                <a href="publisher.php?publisher=<?php echo $publisher; ?>&page=<?php echo $current_page - 1 ?>"
+                    class="page-link text-danger">Previous</a>
             </li>
         <?php endif ?>
         <?php
@@ -31,7 +32,8 @@
                 </li>
             <?php else: ?>
                 <li class="page-item">
-                    <a href="index.php?page=<?php echo $i; ?>" class="page-link text-danger">
+                    <a href="publisher.php?publisher=<?php echo $publisher; ?>&page=<?php echo $i; ?>"
+                        class="page-link text-danger">
                         <?php echo $i; ?>
                     </a>
                 </li>
@@ -41,7 +43,8 @@
 
         if ($current_page < $total_pages): ?>
             <li class="page-item">
-                <a href="index.php?page=<?php echo $current_page + 1 ?>" class="page-link text-danger">Next</a>
+                <a href="publisher.php?publisher=<?php echo $publisher; ?>&page=<?php echo $current_page + 1 ?>"
+                    class="page-link text-danger">Next</a>
             </li>
         <?php endif ?>
     </ul>

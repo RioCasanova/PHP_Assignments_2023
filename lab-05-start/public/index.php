@@ -61,7 +61,6 @@ $records = find_records($per_page, $offset);
         if ($connection->error) {
             // echo $connection->$error;
         } else {
-            print_r($result);
             if ($result->num_rows > 0) {
                 echo "\n<table class=\"table\">";
                 echo "\n<tr class=\"text-danger\">";
