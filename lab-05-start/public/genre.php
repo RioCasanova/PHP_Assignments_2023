@@ -5,6 +5,12 @@
 $title = "The Comic Chronicler";
 $genre = isset($_GET['genre']) ? $_GET['genre'] : "";
 
+// There was an issue with pagination and getting Superhero records -- this fixes the issue (patch*)
+if ($genre) {
+    $genre = str_contains($genre, 'Superhero') == true ? 'Superhero' : $_GET['genre'];
+}
+
+
 include('includes/header.php');
 
 #region PAGINATION SETUP
@@ -12,7 +18,7 @@ include('includes/header.php');
 
 
 $per_page = 20;
-$total_count = count_records_genre(); // Number of records total
+$total_count = count_records_genre($genre); // Number of records total
 $total_pages = ceil($total_count / $per_page); // rounds up to an integer
 $current_page = (int) ($_GET['page'] ?? 1); // making sure it isnt null
 
