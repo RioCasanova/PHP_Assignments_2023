@@ -24,8 +24,8 @@
                     <!-- Depending upon the categories that you choose, the link text and referenced page will differ. -->
                     <li class="nav-item"><a href="genre.php"
                             class="nav-link link-light link-body-emphasis px-2">Genre&emsp;|</a></li>
-                    <li class="nav-item"><a href="character.php"
-                            class="nav-link link-light link-body-emphasis px-2">Character&emsp;|</a></li>
+                    <li class="nav-item"><a href="publisher.php"
+                            class="nav-link link-light link-body-emphasis px-2">Publisher&emsp;|</a></li>
                     <li class="nav-item"><a href="decade.php" class="nav-link link-light link-body-emphasis px-2">
                             Decade</a>
                     </li>
