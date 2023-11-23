@@ -103,10 +103,10 @@ function count_records_character()
 function find_by_genre($limit = 0, $offset = 0, $genre)
 {
     global $connection;
-    $sql = "SELECT title, writer, artist, year 
+    $sql = "SELECT title, writer, artist, genre 
             FROM lab05_comic_books 
-            WHERE year LIKE '$genre%'
-            ORDER BY year DESC";
+            WHERE genre LIKE '%$genre%'
+            ORDER BY genre DESC";
 
     if ($limit > 0) {
         $sql .= " LIMIT " . $limit;
@@ -125,7 +125,7 @@ function count_records_genre()
     if (!$genre) {
         $sql = "SELECT COUNT(*) FROM lab05_comic_books";
     } else {
-        $sql = "SELECT COUNT(*) FROM lab05_comic_books WHERE year LIKE '$genre%'";
+        $sql = "SELECT COUNT(*) FROM lab05_comic_books WHERE genre LIKE '%$genre%'";
     }
 
     $results = mysqli_query($connection, $sql);

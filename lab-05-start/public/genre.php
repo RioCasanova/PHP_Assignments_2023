@@ -10,12 +10,8 @@ include('includes/header.php');
 #region PAGINATION SETUP
 
 
-if (!$genre) {
-    $per_page = 20; // number of results per page
-} else {
-    $per_page = 10; // number of results per page
-}
 
+$per_page = 20;
 $total_count = count_records_genre(); // Number of records total
 $total_pages = ceil($total_count / $per_page); // rounds up to an integer
 $current_page = (int) ($_GET['page'] ?? 1); // making sure it isnt null
@@ -45,6 +41,7 @@ $offset = $per_page * ($current_page - 1);
             <h2 class="display-4">Browse by <span class="text-danger">Genre</span></h2>
             <p>Click any of the buttons below to browse the titles in our database by Genre</p>
         </div>
+
         <!-- Selection of Genres -->
         <div class="text-center mb-4">
             <?php if ($genre == 'Superhero') { ?>
@@ -71,62 +68,213 @@ $offset = $per_page * ($current_page - 1);
                         Horror</a>
                 </button>
             <?php } ?>
-            <?php if ($genre == 198) { ?>
+            <?php if ($genre == 'Drama') { ?>
                 <button class="btn btn-outline-danger active m-2">
-                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=198"
-                        class="text-decoration-none text-reset">1980</a>
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Drama"
+                        class="text-decoration-none text-reset">Drama</a>
                 </button>
             <?php } else { ?>
                 <button class="btn btn-outline-danger m-2">
-                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=198"
-                        class="text-decoration-none text-reset">1980</a>
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Drama"
+                        class="text-decoration-none text-reset">Drama</a>
                 </button>
             <?php } ?>
-            <?php if ($genre == 199) { ?>
+            <?php if ($genre == 'Science Fiction') { ?>
                 <button class="btn btn-outline-danger active m-2">
-                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=199"
-                        class="text-decoration-none text-reset">1990</a>
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Science%20Fiction"
+                        class="text-decoration-none text-reset">Science Fiction</a>
                 </button>
             <?php } else { ?>
                 <button class="btn btn-outline-danger m-2">
-                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=199"
-                        class="text-decoration-none text-reset">1990</a>
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Science%20Fiction"
+                        class="text-decoration-none text-reset">Science Fiction</a>
                 </button>
             <?php } ?>
-            <?php if ($genre == 200) { ?>
+            <?php if ($genre == 'Fantasy') { ?>
                 <button class="btn btn-outline-danger active m-2">
-                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=200"
-                        class="text-decoration-none text-reset">2000</a>
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Fantasy"
+                        class="text-decoration-none text-reset">Fantasy</a>
                 </button>
             <?php } else { ?>
                 <button class="btn btn-outline-danger m-2">
-                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=200"
-                        class="text-decoration-none text-reset">2000</a>
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Fantasy"
+                        class="text-decoration-none text-reset">Fantasy</a>
                 </button>
             <?php } ?>
-            <?php if ($genre == 201) { ?>
+            <?php if ($genre == 'Supernatural') { ?>
                 <button class="btn btn-outline-danger active m-2">
-                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=201"
-                        class="text-decoration-none text-reset">2010</a>
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Supernatural"
+                        class="text-decoration-none text-reset">Supernatural</a>
                 </button>
             <?php } else { ?>
                 <button class="btn btn-outline-danger m-2">
-                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=201"
-                        class="text-decoration-none text-reset">2010</a>
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Supernatural"
+                        class="text-decoration-none text-reset">Supernatural</a>
+                </button>
+            <?php } ?>
+            <?php if ($genre == 'Satire') { ?>
+                <button class="btn btn-outline-danger active m-2">
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Satire"
+                        class="text-decoration-none text-reset">Satire</a>
+                </button>
+            <?php } else { ?>
+                <button class="btn btn-outline-danger m-2">
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Satire"
+                        class="text-decoration-none text-reset">Satire</a>
+                </button>
+            <?php } ?>
+            <?php if ($genre == 'Mystery') { ?>
+                <button class="btn btn-outline-danger active m-2">
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Mystery"
+                        class="text-decoration-none text-reset">Mystery</a>
+                </button>
+            <?php } else { ?>
+                <button class="btn btn-outline-danger m-2">
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Mystery"
+                        class="text-decoration-none text-reset">Mystery</a>
+                </button>
+            <?php } ?>
+            <?php if ($genre == 'Psychological') { ?>
+                <button class="btn btn-outline-danger active m-2">
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Psychological"
+                        class="text-decoration-none text-reset">Psychological</a>
+                </button>
+            <?php } else { ?>
+                <button class="btn btn-outline-danger m-2">
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Psychological"
+                        class="text-decoration-none text-reset">Psychological</a>
+                </button>
+            <?php } ?>
+            <?php if ($genre == 'Historical') { ?>
+                <button class="btn btn-outline-danger active m-2">
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Historical"
+                        class="text-decoration-none text-reset">Historical</a>
+                </button>
+            <?php } else { ?>
+                <button class="btn btn-outline-danger m-2">
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Historical"
+                        class="text-decoration-none text-reset">Historical</a>
+                </button>
+            <?php } ?>
+            <?php if ($genre == 'Biography') { ?>
+                <button class="btn btn-outline-danger active m-2">
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Biography"
+                        class="text-decoration-none text-reset">Biography</a>
+                </button>
+            <?php } else { ?>
+                <button class="btn btn-outline-danger m-2">
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Biography"
+                        class="text-decoration-none text-reset">Biography</a>
+                </button>
+            <?php } ?>
+            <?php if ($genre == 'Comedy') { ?>
+                <button class="btn btn-outline-danger active m-2">
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Comedy"
+                        class="text-decoration-none text-reset">Comedy</a>
+                </button>
+            <?php } else { ?>
+                <button class="btn btn-outline-danger m-2">
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Comedy"
+                        class="text-decoration-none text-reset">Comedy</a>
+                </button>
+            <?php } ?>
+            <?php if ($genre == 'Noir') { ?>
+                <button class="btn btn-outline-danger active m-2">
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Noir"
+                        class="text-decoration-none text-reset">Noir</a>
+                </button>
+            <?php } else { ?>
+                <button class="btn btn-outline-danger m-2">
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Noir"
+                        class="text-decoration-none text-reset">Noir</a>
+                </button>
+            <?php } ?>
+            <?php if ($genre == 'Crime') { ?>
+                <button class="btn btn-outline-danger active m-2">
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Crime"
+                        class="text-decoration-none text-reset">Crime</a>
+                </button>
+            <?php } else { ?>
+                <button class="btn btn-outline-danger m-2">
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Crime"
+                        class="text-decoration-none text-reset">Crime</a>
+                </button>
+            <?php } ?>
+            <?php if ($genre == 'Adventure') { ?>
+                <button class="btn btn-outline-danger active m-2">
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Adventure"
+                        class="text-decoration-none text-reset">Adventure</a>
+                </button>
+            <?php } else { ?>
+                <button class="btn btn-outline-danger m-2">
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Adventure"
+                        class="text-decoration-none text-reset">Adventure</a>
+                </button>
+            <?php } ?>
+            <?php if ($genre == 'Autobiography') { ?>
+                <button class="btn btn-outline-danger active m-2">
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Autobiography"
+                        class="text-decoration-none text-reset">Autobiography</a>
+                </button>
+            <?php } else { ?>
+                <button class="btn btn-outline-danger m-2">
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Autobiography"
+                        class="text-decoration-none text-reset">Autobiography</a>
+                </button>
+            <?php } ?>
+            <?php if ($genre == 'Romance') { ?>
+                <button class="btn btn-outline-danger active m-2">
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Romance"
+                        class="text-decoration-none text-reset">Romance</a>
+                </button>
+            <?php } else { ?>
+                <button class="btn btn-outline-danger m-2">
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Romance"
+                        class="text-decoration-none text-reset">Romance</a>
+                </button>
+            <?php } ?>
+            <?php if ($genre == 'Mature') { ?>
+                <button class="btn btn-outline-danger active m-2">
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Mature"
+                        class="text-decoration-none text-reset">Mature</a>
+                </button>
+            <?php } else { ?>
+                <button class="btn btn-outline-danger m-2">
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Mature"
+                        class="text-decoration-none text-reset">Mature</a>
+                </button>
+            <?php } ?>
+            <?php if ($genre == 'Steampunk') { ?>
+                <button class="btn btn-outline-danger active m-2">
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Steampunk"
+                        class="text-decoration-none text-reset">Steampunk</a>
+                </button>
+            <?php } else { ?>
+                <button class="btn btn-outline-danger m-2">
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Steampunk"
+                        class="text-decoration-none text-reset">Steampunk</a>
+                </button>
+            <?php } ?>
+            <?php if ($genre == 'Action') { ?>
+                <button class="btn btn-outline-danger active m-2">
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Action"
+                        class="text-decoration-none text-reset">Action</a>
+                </button>
+            <?php } else { ?>
+                <button class="btn btn-outline-danger m-2">
+                    <a href="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?genre=Action"
+                        class="text-decoration-none text-reset">Action</a>
                 </button>
             <?php } ?>
         </div>
-        <?php
 
-
-        ?>
 
         <!-- Table of Records -->
         <div class="col-md-10 col-lg-8">
             <?php
             // this is our query with the appended offset
             
-            $result = find_by_decade($per_page, $offset, $decade);
+            $result = find_by_genre($per_page, $offset, $genre);
 
             if ($connection->error) {
                 echo $connection->$error;
@@ -137,7 +285,7 @@ $offset = $per_page * ($current_page - 1);
                     echo "<th scope=\"col\"><a href=\"#\"class=\"text-reset\">Title</a></th>";
                     echo "<th scope=\"col\"><a href=\"#\"class=\"text-reset\">Writer</a></th>";
                     echo "<th scope=\"col\"><a href=\"#\" class=\"text-reset\">Artist</a></th>";
-                    echo "<th scope=\"col\"><a href=\"#\" class=\"text-reset\">Year</a></th>";
+                    echo "<th scope=\"col\"><a href=\"#\" class=\"text-reset\">Genre</a></th>";
                     echo "<th scope=\"col\" class=\"text-dark\">Actions</th>";
                     echo "</tr>";
                     while ($row = $result->fetch_assoc()) {
@@ -146,7 +294,7 @@ $offset = $per_page * ($current_page - 1);
                                 <td>$title</td>
                                 <td>$writer</td>
                                 <td>$artist</td>
-                                <td>$year</td>
+                                <td>$genre</td>
                                 <td><a href=\"#\" class=\"text-danger\">View</a></td>
                                 </tr>";
                     }
@@ -166,7 +314,7 @@ $offset = $per_page * ($current_page - 1);
             <?php
             if ($current_page > 1): ?>
                 <li class="page-item">
-                    <a href="decade.php?decade=<?php echo $decade; ?>&page=<?php echo $current_page - 1 ?>"
+                    <a href="genre.php?genre=<?php echo $genre; ?>&page=<?php echo $current_page - 1 ?>"
                         class="page-link text-danger">Previous</a>
                 </li>
             <?php endif ?>
@@ -195,7 +343,7 @@ $offset = $per_page * ($current_page - 1);
                     </li>
                 <?php else: ?>
                     <li class="page-item">
-                        <a href="decade.php?decade=<?php echo $decade; ?>&page=<?php echo $i; ?>" class="page-link text-danger">
+                        <a href="genre.php?genre=<?php echo $genre; ?>&page=<?php echo $i; ?>" class="page-link text-danger">
                             <?php echo $i; ?>
                         </a>
                     </li>
@@ -205,7 +353,7 @@ $offset = $per_page * ($current_page - 1);
 
             if ($current_page < $total_pages): ?>
                 <li class="page-item">
-                    <a href="decade.php?decade=<?php echo $decade; ?>&page=<?php echo $current_page + 1 ?>"
+                    <a href="genre.php?genre=<?php echo $genre ?>&page=<?php echo $current_page + 1 ?>"
                         class="page-link text-danger">Next</a>
                 </li>
             <?php endif ?>
