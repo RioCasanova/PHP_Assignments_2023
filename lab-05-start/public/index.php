@@ -47,8 +47,16 @@ $records = find_records($per_page, $offset);
 
         <!-- Random Title Feature: If you choose to do the randomised title challenge, include it here. -->
         <div
-            class="col col-lg-4 col-xxl-3 m-4 m-md-0 mb-md-4 border border-danger rounded p-3 d-flex flex-column justify-content-center align-items-center">
+            class="col col-lg-4 col-xxl-3 pe-3 m-4 m-md-0 mb-md-4 border border-danger rounded p-3 d-flex flex-column justify-content-center align-items-center">
             <h2 class="fw-light mb-3">Featured Title</h2>
+            <?php
+            $comic = get_featured_title();
+            $id = $comic['id'];
+            echo "<p class=\"card-text\"><b>Title: </b>" . $comic['title'] . "</p>";
+            echo "<p class=\"card-text\"><b>Writer: </b>" . $comic['writer'] . "</p>";
+            echo "<p class=\"card-text\"><b>Artist: </b>" . $comic['artist'] . "</p>";
+            echo "<a href=\"view.php?id=$id\" class=\"text-danger\">View</a>";
+            ?>
         </div>
     </section>
     <a href=""></a>

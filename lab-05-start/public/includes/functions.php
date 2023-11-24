@@ -130,6 +130,16 @@ function get_comic($id)
     return $comic;
 }
 #endregion
+
+#region FEATURED TITLE
+function get_featured_title()
+{
+    $comic_id = rand(1, count_records());
+    $comic = get_comic($comic_id);
+    return $comic;
+}
+
+#endregion
 #region Error Handling
 function handle_database_error($statement)
 {

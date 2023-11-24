@@ -39,7 +39,7 @@
         <section class="py-3 mb-4 border-bottom">
             <div class="container d-flex flex-wrap justify-content-center">
                 <a href="index.php"
-                    class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto link-body-emphasis text-decoration-none">
+                    class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto link-body-emphasis text-decoration-none ">
                     <svg class="bi me-2" width="40" height="32">
                         <use xlink:href="#bootstrap"></use>
                     </svg>
@@ -47,10 +47,20 @@
                 </a>
 
                 <!-- If you choose to do the 'quick search' as your challenge, include the widget here. -->
-                <!-- <form class="col-12 col-lg-auto mb-3 mb-lg-0" role="search"> -->
-                <!-- This is an input type of search, so the user has to hit 'enter' or 'return' to submit the form. A more user-friendly thing to do would be to also offer a submit button beside it. -->
-                <!-- <input type="search" class="form-control" aria-label="Search">
-                    </form> -->
+                <form class="col-12 col-lg-4  mb-3 mb-lg-0" role="search"
+                    action="search-results.php?search=<?php echo isset($_GET['search']) ? $_GET['search'] : "" ?>">
+                    <!-- This is an input type of search, so the user has to hit 'enter' or 'return' to submit the form. A more user-friendly thing to do would be to also offer a submit button beside it. -->
+                    <div class="container">
+                        <div class="row flex-md-nowrap">
+                            <input type="search" class="form-control col mt-2" aria-label="Search"
+                                style="max-height: 38px;">
+                            <button class="btn btn-outline-danger m-2 col-2" type="submit" name="submit">
+                                <a href="search-results.php?search=<?php echo isset($_GET['search']) ? $_GET['search'] : "" ?>"
+                                    class="text-decoration-none text-reset">Search</a>
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </section>
     </header>
