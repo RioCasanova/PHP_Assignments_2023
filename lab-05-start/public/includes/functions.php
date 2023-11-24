@@ -1,3 +1,4 @@
+<?php require_once("/home/rcasanova2/data/connect.php"); ?>
 <?php
 
 
@@ -6,7 +7,7 @@
 function find_records($limit = 0, $offset = 0)
 {
     global $connection;
-    $sql = "SELECT title, writer, artist FROM lab05_comic_books";
+    $sql = "SELECT id, title, writer, artist FROM lab05_comic_books";
     if ($limit > 0) {
         $sql .= " LIMIT " . $limit;
     }
@@ -33,7 +34,7 @@ function count_records()
 function find_by_decade($limit = 0, $offset = 0, $decade)
 {
     global $connection;
-    $sql = "SELECT title, writer, artist, year 
+    $sql = "SELECT id, title, writer, artist, year 
             FROM lab05_comic_books 
             WHERE year LIKE '$decade%'
             ORDER BY year DESC";
@@ -68,7 +69,7 @@ function count_records_decade()
 function find_by_publisher($publisher)
 {
     global $connection;
-    $sql = "SELECT title, writer, artist, publisher 
+    $sql = "SELECT id, title, writer, artist, publisher 
             FROM lab05_comic_books 
             WHERE publisher LIKE '%$publisher%'
             ORDER BY publisher DESC";
@@ -83,7 +84,7 @@ function find_by_publisher($publisher)
 function find_by_genre($limit = 0, $offset = 0, $category)
 {
     global $connection;
-    $sql = "SELECT title, writer, artist, genre 
+    $sql = "SELECT id, title, writer, artist, genre 
             FROM lab05_comic_books 
             WHERE genre LIKE '%$category%'
             ORDER BY genre DESC";
@@ -114,7 +115,21 @@ function count_records_genre()
 }
 #endregion
 
+#region VIEW 
+function get_comic($id)
+{
+    global $connection;
+    $sql = $connection->prepare("SELECT * FROM lab05_comic_books WHERE id = ?");
+    $sql->bind_param('i', $id);
+    if (!$sql->execute()) {
+        handle_database_error("selecting single record by id");
+    }
 
+    $result = $sql->get_result();
+    $comic = $result->fetch_assoc();
+    return $comic;
+}
+#endregion
 #region Error Handling
 function handle_database_error($statement)
 {

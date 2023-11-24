@@ -301,7 +301,7 @@ $offset = $per_page * ($current_page - 1);
                                 <td>$writer</td>
                                 <td>$artist</td>
                                 <td>$genre</td>
-                                <td><a href=\"#\" class=\"text-danger\">View</a></td>
+                                <td><a href=\"view.php?id=$id\" class=\"text-danger\">View</a></td>
                                 </tr>";
                     }
                     echo "</table>";

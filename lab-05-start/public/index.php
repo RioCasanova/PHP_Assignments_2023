@@ -75,7 +75,7 @@ $records = find_records($per_page, $offset);
                                 <td>$title</td>
                                 <td>$writer</td>
                                 <td>$artist</td>
-                                <td><a href=\"#\" class=\"text-danger\">View</a></td>
+                                <td><a href=\"view.php?id=$id\" class=\"text-danger\">View</a></td>
                                 </tr>";
                 }
                 echo "</table>";
