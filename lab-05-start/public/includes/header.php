@@ -47,20 +47,29 @@
                 </a>
 
                 <!-- If you choose to do the 'quick search' as your challenge, include the widget here. -->
+
+                <?php
+
+                $search = isset($_GET['search']) ? $_GET['search'] : "";
+
+                ?>
                 <form class="col-12 col-lg-4  mb-3 mb-lg-0" role="search"
-                    action="search-results.php?search=<?php echo isset($_GET['search']) ? $_GET['search'] : "" ?>">
+                    action="search-results.php?search=<?php $search ?>">
                     <!-- This is an input type of search, so the user has to hit 'enter' or 'return' to submit the form. A more user-friendly thing to do would be to also offer a submit button beside it. -->
                     <div class="container">
                         <div class="row flex-md-nowrap">
-                            <input type="search" class="form-control col mt-2" aria-label="Search"
-                                style="max-height: 38px;">
-                            <button class="btn btn-outline-danger m-2 col-2" type="submit" name="submit">
-                                <a href="search-results.php?search=<?php echo isset($_GET['search']) ? $_GET['search'] : "" ?>"
-                                    class="text-decoration-none text-reset">Search</a>
-                            </button>
+                            <input type="search" name="search" class="form-control col mt-2" aria-label="Search"
+                                style="max-height: 38px;" placeholder="Keyword Search..." />
+                            <input type="submit" name="submit" value="Search"
+                                class="btn btn-outline-danger m-2 col-2" />
                         </div>
                     </div>
                 </form>
             </div>
         </section>
     </header>
+
+    <!-- <button class="btn btn-outline-danger m-2 col-2">
+                                <a href="search-results.php?search=<?php ?>"
+                                    class="text-decoration-none text-reset" >Search</a>
+                            </button> -->

@@ -140,6 +140,46 @@ function get_featured_title()
 }
 
 #endregion
+
+#region SEARCH RESULTS
+function get_search_results($limit = 0, $offset = 0, $search)
+{
+    global $connection;
+    $sql = "SELECT * FROM lab05_comic_books WHERE title LIKE '%$search%'
+                                               OR artist LIKE '%$search%'
+                                               OR writer LIKE '%$search%'
+                                               OR publisher LIKE '%$search%'
+                                               OR year LIKE '%$search%'
+                                               OR genre LIKE '%$search%'
+                                               OR characters LIKE '%$search%'";
+    if ($limit > 0) {
+        $sql .= " LIMIT " . $limit;
+    }
+    if ($offset > 0) {
+        $sql .= " OFFSET " . $offset;
+    }
+
+    $comics = $connection->query($sql);
+    return $comics;
+}
+
+function count_records_search()
+{
+    global $connection;
+    $search = isset($_GET['search']) ? $_GET['search'] : "";
+    $sql = "SELECT COUNT(*) FROM lab05_comic_books  WHERE title LIKE '%$search%'
+                                                       OR artist LIKE '%$search%'
+                                                       OR writer LIKE '%$search%'
+                                                       OR publisher LIKE '%$search%'
+                                                       OR year LIKE '%$search%'
+                                                       OR genre LIKE '%$search%'
+                                                       OR characters LIKE '%$search%'";
+    $results = mysqli_query($connection, $sql);
+    $fetch = mysqli_fetch_row($results);
+    return $fetch[0];
+}
+
+#endregion
 #region Error Handling
 function handle_database_error($statement)
 {
