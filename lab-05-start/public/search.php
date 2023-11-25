@@ -10,7 +10,7 @@ include('includes/header.php');
 // VARIABLES
 $search_field = isset($_GET['search_field']) ? trim($_GET['search_field']) : "";
 $search_by = isset($_GET['search_by']) ? trim($_GET['search_by']) : "";
-$search_publisher = isset($_GET['publisher_filter']) ? trim($_GET['publisher_filter']) : array("");
+$search_publisher = isset($_GET['publisher_filter']) ? $_GET['publisher_filter'] : array("");
 $search_year_start = isset($_GET['search_year_start']) ? trim($_GET['search_year_start']) : "";
 $search_year_end = isset($_GET['search_year_end']) ? trim($_GET['search_year_end']) : "";
 $sort_type = isset($_GET['sort_type']) ? trim($_GET['sort_type']) : "";
@@ -65,7 +65,7 @@ if (isset($_GET['submit-btn'])) {
 
             <!-- Search for -->
             <fieldset class="mt-4">
-            <legend class="fs-5 fw-semibold">Search</legend>
+                <legend class="fs-5 fw-semibold">Search</legend>
                 <div>
                     <label for="search_field">Search for:</label>
                     <input type="text" class="form-control" name="search_field"
@@ -108,17 +108,17 @@ if (isset($_GET['submit-btn'])) {
 
                 <!-- checkboxes -->
                 <div>
-                    <input type="checkbox" class="form-check-input" name="publisher_filter[]" id="marvel" value="1"
-                            <?php if (isset($_GET['publisher_filter']) && in_array("1", $_GET['publisher_filter']))
-                                echo 'checked'; ?>>
-                        <label for="marvel" class="form-check-label">Marvel Comics</label>
-                    </div>
+                    <input type="checkbox" class="form-check-input" name="publisher_filter[]" id="marvel"
+                        value="'Marvel Comics'" <?php if (isset($_GET['publisher_filter']) && in_array("Marvel Comics", $_GET['publisher_filter']))
+                            echo 'checked'; ?>>
+                    <label for="marvel" class="form-check-label">Marvel Comics</label>
+                </div>
 
-                    <div>
-                        <input type="checkbox" class="form-check-input" name="publisher_filter[]" id="DC" value="2"
-                            <?php if (isset($_GET['publisher_filter']) && in_array("2", $_GET['publisher_filter']))
-                                echo 'checked'; ?>>
-                        <label for="DC" class="form-check-label">DC Comics</label>
+                <div>
+                    <input type="checkbox" class="form-check-input" name="publisher_filter[]" id="DC"
+                        value="'DC Comics'" <?php if (isset($_GET['publisher_filter']) && in_array("DC Comics", $_GET['publisher_filter']))
+                            echo 'checked'; ?>>
+                    <label for="DC" class="form-check-label">DC Comics</label>
                 </div>
             </fieldset>
 
@@ -131,8 +131,9 @@ if (isset($_GET['submit-btn'])) {
                     <legend class="fs-5 mb-2 ps-0 fw-semibold">Year of Publication </legend>
                     <div class="col ps-0">
                         <label for="search_year_start" class="form-label">from year:</label>
-                        <input type="number" class="form-control" id="search_year_start" name="search_year_start" min="1962"
-                            max="2018" value="<?php echo ($search_year_start != "") ? $search_year_start : 1962; ?>">
+                        <input type="number" class="form-control" id="search_year_start" name="search_year_start"
+                            min="1962" max="2018"
+                            value="<?php echo ($search_year_start != "") ? $search_year_start : 1962; ?>">
                     </div>
                     <div class="col">
                         <label for="search_year_end" class="form-label">to year:</label>
@@ -146,18 +147,19 @@ if (isset($_GET['submit-btn'])) {
 
             <!-- Sort Order -->
             <fieldset class="my-3">
-                <legend class="fs-5 fw-semibold">Sort Order: </legend>
+                <legend class="fs-5 fw-semibold pb-0 mb-0">Sort Order: </legend>
+                <p class="text-muted">sorts by what you are searching by (ex. Title)</p>
                 <div class="mb-3">
                     <div class="form-check m-0 ">
-                        <input class="form-check-input " value="ascending" type="radio" name="sort_type" id="ascending"
-                            <?php echo ($sort_type == 'ascending') ? 'checked="checked"' : ""; ?>>
+                        <input class="form-check-input " value="ASC" type="radio" name="sort_type" id="ascending"
+                            <?php echo ($sort_type == 'ASC') ? 'checked="checked"' : ""; ?>>
                         <label class="form-check-label" for="sort_type">
                             Ascending
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" value="descending" type="radio" name="sort_type" id="descending"
-                            <?php echo $sort_type == 'descending' ? 'checked="checked"' : ''; ?>>
+                        <input class="form-check-input" value="DESC" type="radio" name="sort_type" id="descending"
+                            <?php echo $sort_type == 'DESC' ? 'checked="checked"' : ''; ?>>
                         <label class="form-check-label" for="sort_type">
                             Descending
                         </label>
@@ -171,6 +173,96 @@ if (isset($_GET['submit-btn'])) {
                 <input type="submit" id="submit" name="submit" class="btn btn-outline-danger" value="Search">
             </div>
         </form>
+
+
+        <?php
+
+        // Results table -- UN-COMMENT THE RAADIO BUTTON
+        
+        $query = "SELECT id, title, writer, artist, genre, publisher, year FROM lab05_comic_books";
+
+        if (isset($_GET['submit'])) {
+
+            // search by
+        
+            if (isset($_GET['search_by']) && !empty($_GET['search_by'])) {
+                // appending to the value of $query
+                $query .= " WHERE $search_by";
+            }
+
+
+            // text search
+        
+            if (isset($_GET['search_field']) && !empty($_GET['search_field'])) {
+                $text_search = $connection->real_escape_string($_GET['search_field']);
+                // appending to the value of $query
+                $query .= " LIKE '%$text_search%'";
+            }
+
+            // publisher filter
+        
+            if (!in_array("", $search_publisher)) {
+                $query .= " AND publisher IN (" . implode(", ", $search_publisher) . ")";
+            }
+
+            // year of publication
+        
+            if ($search_year_start != "" && $search_year_end != "") {
+                $query .= " AND year BETWEEN $search_year_start AND $search_year_end";
+            }
+
+
+            // sort order
+        
+            if ($sort_type != "" && $sort_type != "") {
+                $query .= " ORDER BY $search_by $sort_type";
+            }
+            // just for learning and testing, let's see our entire query
+        
+            echo "\n<div class=\"alert alert-info\"><b>Query:</b><br> " . $query . "</div>";
+
+
+            $result = $connection->query($query);
+            if ($connection->error) {
+                echo $connection->error;
+            } else {
+                if ($result->num_rows > 0) {
+                    echo "<table  class=\"table table-bordered\">";
+                    echo "<tr class=\"bg-dark text-light\">";
+                    echo "<th scope=\"col\">Title</th>";
+                    echo "<th scope=\"col\">Writer</th>";
+                    echo "<th scope=\"col\">Artist</th>";
+                    echo "<th scope=\"col\">Genre</th>";
+                    echo "<th scope=\"col\">Publisher</th>";
+                    echo "<th scope=\"col\">Year</th>";
+                    echo "<th scope=\"col\">View</th>";
+                    echo "</tr>";
+                    while ($row = $result->fetch_assoc()) {
+                        extract($row);
+                        echo "<tr>
+                    <td>$title</td>
+                    <td>$writer</td>
+                    <td>$artist</td>
+                    <td>$genre</td>
+                    <td>$publisher</td>
+                    <td>$year</td>
+                    <td><a href=\"view.php?id=$id\" class=\"text-danger\">View</a></td>
+                    </tr>";
+                    }
+                    echo "</table>";
+                } else {
+                    echo "<p>Sorry there are no records available that match your query</p>";
+                }
+
+
+            }
+
+
+        } // \ if submit
+        
+
+
+        ?>
     </section>
 </main>
 
