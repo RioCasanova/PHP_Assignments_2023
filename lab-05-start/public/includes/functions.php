@@ -77,7 +77,20 @@ function find_by_publisher($publisher)
     $result = $connection->query($sql);
     return $result;
 }
+function count_records_publisher()
+{
+    global $connection;
+    $publisher = isset($_GET['publisher']) ? $_GET['publisher'] : "";
+    if (!$publisher) {
+        $sql = "SELECT COUNT(*) FROM lab05_comic_books";
+    } else {
+        $sql = "SELECT COUNT(*) FROM lab05_comic_books WHERE publisher LIKE '%$publisher%'";
+    }
 
+    $results = mysqli_query($connection, $sql);
+    $fetch = mysqli_fetch_row($results);
+    return $fetch[0];
+}
 #endregion
 
 #region GENRE

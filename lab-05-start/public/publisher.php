@@ -8,20 +8,19 @@ $publisher = isset($_GET['publisher']) ? $_GET['publisher'] : "";
 
 #region PAGINATION SETUP
 
-// only using this if publisher has not been chosen
-if (!$publisher) {
-    $per_page = 20; // number of results per page
-    $total_count = count_records(); // Number of records total
-    $total_pages = ceil($total_count / $per_page); // rounds up to an integer
-    $current_page = (int) ($_GET['page'] ?? 1); // making sure it isnt null
 
-    if ($current_page < 1 || $current_page > $total_pages || !is_int($current_page)) {
-        $current_page = 1;
-    }
+$per_page = 20; // number of results per page
+$total_count = count_records_publisher(); // Number of records total
+$total_pages = ceil($total_count / $per_page); // rounds up to an integer
+$current_page = (int) ($_GET['page'] ?? 1); // making sure it isnt null
 
-    // Offset: If we are grabbing 20 per page and the age is 2, we'll get records 21 - 40
-    $offset = $per_page * ($current_page - 1);
+if ($current_page < 1 || $current_page > $total_pages || !is_int($current_page)) {
+    $current_page = 1;
 }
+
+// Offset: If we are grabbing 20 per page and the age is 2, we'll get records 21 - 40
+$offset = $per_page * ($current_page - 1);
+
 
 #endregion
 
@@ -313,38 +312,34 @@ if (!$publisher) {
         <div class="col-md-10 col-lg-8">
             <?php
             // this is our query with the appended offset
-            if ($publisher) {
+            if ($publisher != "") {
                 $result = find_by_publisher($publisher);
-            } else {
-                $result = find_records($per_page, $offset);
-            }
-
-
-            if ($connection->error) {
-                echo $connection->$error;
-            } else {
-                if ($result->num_rows > 0) {
-                    echo "\n<table class=\"table\">";
-                    echo "\n<tr class=\"text-danger\">";
-                    echo "<th scope=\"col\"><a href=\"#\"class=\"text-reset\">Title</a></th>";
-                    echo "<th scope=\"col\"><a href=\"#\"class=\"text-reset\">Writer</a></th>";
-                    echo "<th scope=\"col\"><a href=\"#\" class=\"text-reset\">Artist</a></th>";
-                    echo "<th scope=\"col\"><a href=\"#\" class=\"text-reset\">Publisher</a></th>";
-                    echo "<th scope=\"col\" class=\"text-dark\">Actions</th>";
-                    echo "</tr>";
-                    while ($row = $result->fetch_assoc()) {
-                        extract($row);
-                        echo "<tr class=\"mb-4\">
-                                <td>$title</td>
-                                <td>$writer</td>
-                                <td>$artist</td>
-                                <td>$publisher</td>
-                                <td><a href=\"view.php?id=$id\" class=\"text-danger\">View</a></td>
-                                </tr>";
-                    }
-                    echo "</table>";
+                if ($connection->error) {
+                    echo $connection->$error;
                 } else {
-                    echo "<h1>No Results</h1>";
+                    if ($result->num_rows > 0) {
+                        echo "\n<table class=\"table\">";
+                        echo "\n<tr class=\"text-danger\">";
+                        echo "<th scope=\"col\"><a href=\"#\"class=\"text-reset\">Title</a></th>";
+                        echo "<th scope=\"col\"><a href=\"#\"class=\"text-reset\">Writer</a></th>";
+                        echo "<th scope=\"col\"><a href=\"#\" class=\"text-reset\">Artist</a></th>";
+                        echo "<th scope=\"col\"><a href=\"#\" class=\"text-reset\">Publisher</a></th>";
+                        echo "<th scope=\"col\" class=\"text-dark\">Actions</th>";
+                        echo "</tr>";
+                        while ($row = $result->fetch_assoc()) {
+                            extract($row);
+                            echo "<tr class=\"mb-4\">
+                                    <td>$title</td>
+                                    <td>$writer</td>
+                                    <td>$artist</td>
+                                    <td>$publisher</td>
+                                    <td><a href=\"view.php?id=$id\" class=\"text-danger\">View</a></td>
+                                    </tr>";
+                        }
+                        echo "</table>";
+                    } else {
+                        echo "<h1>No Results</h1>";
+                    }
                 }
             }
             ?>
@@ -353,7 +348,7 @@ if (!$publisher) {
 
 
 
-    <?php if (!$publisher) {
+    <?php if ($publisher != "") {
         include('includes/pagination.php');
     }
     ?>

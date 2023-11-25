@@ -275,96 +275,99 @@ $offset = $per_page * ($current_page - 1);
             <?php } ?>
         </div>
 
-
         <!-- Table of Records -->
         <div class="col-md-10 col-lg-8">
             <?php
             // this is our query with the appended offset
-            
-            $result = find_by_genre($per_page, $offset, $category);
-            if ($connection->error) {
-                echo $connection->$error;
-            } else {
-                if ($result->num_rows > 0) {
-                    echo "\n<table class=\"table\">";
-                    echo "\n<tr class=\"text-danger\">";
-                    echo "<th scope=\"col\"><a href=\"#\"class=\"text-reset\">Title</a></th>";
-                    echo "<th scope=\"col\"><a href=\"#\"class=\"text-reset\">Writer</a></th>";
-                    echo "<th scope=\"col\"><a href=\"#\" class=\"text-reset\">Artist</a></th>";
-                    echo "<th scope=\"col\"><a href=\"#\" class=\"text-reset\">Genre</a></th>";
-                    echo "<th scope=\"col\" class=\"text-dark\">Actions</th>";
-                    echo "</tr>";
-                    while ($row = $result->fetch_assoc()) {
-                        extract($row);
-                        echo "<tr class=\"mb-4\">
-                                <td>$title</td>
-                                <td>$writer</td>
-                                <td>$artist</td>
-                                <td>$genre</td>
-                                <td><a href=\"view.php?id=$id\" class=\"text-danger\">View</a></td>
-                                </tr>";
-                    }
-                    echo "</table>";
+            if ($category != "") {
+                $result = find_by_genre($per_page, $offset, $category);
+                if ($connection->error) {
+                    echo $connection->$error;
                 } else {
-                    echo "<h1>No Results</h1>";
+                    if ($result->num_rows > 0) {
+                        echo "\n<table class=\"table\">";
+                        echo "\n<tr class=\"text-danger\">";
+                        echo "<th scope=\"col\"><a href=\"#\"class=\"text-reset\">Title</a></th>";
+                        echo "<th scope=\"col\"><a href=\"#\"class=\"text-reset\">Writer</a></th>";
+                        echo "<th scope=\"col\"><a href=\"#\" class=\"text-reset\">Artist</a></th>";
+                        echo "<th scope=\"col\"><a href=\"#\" class=\"text-reset\">Genre</a></th>";
+                        echo "<th scope=\"col\" class=\"text-dark\">Actions</th>";
+                        echo "</tr>";
+                        while ($row = $result->fetch_assoc()) {
+                            extract($row);
+                            echo "<tr class=\"mb-4\">
+                                    <td>$title</td>
+                                    <td>$writer</td>
+                                    <td>$artist</td>
+                                    <td>$genre</td>
+                                    <td><a href=\"view.php?id=$id\" class=\"text-danger\">View</a></td>
+                                    </tr>";
+                        }
+                        echo "</table>";
+                    } else {
+                        echo "<h1>No Results</h1>";
+                    }
                 }
             }
+
             ?>
         </div>
     </section>
 
 
-
-    <nav>
-        <ul class="pagination justify-content-center">
-            <?php
-            if ($current_page > 1): ?>
-                <li class="page-item">
-                    <a href="genre.php?genre=<?php echo $category; ?>&page=<?php echo $current_page - 1 ?>"
-                        class="page-link text-danger">Previous</a>
-                </li>
-            <?php endif ?>
-            <?php
-            // if we have a massive number of page links, we'll obscure
-            // many of these with a gap. In our case, the gap will be an elipsis (...)
-            $gap = false;
-            // The "window" is how many page links on either side of the current page we 
-            // want to receive or see
-            $window = 1;
-            for ($i = 1; $i <= $total_pages; $i++) {
-                if ($i > 1 + $window && $i < $total_pages - $window && abs($i - $current_page) > $window) {
-                    if (!$gap): ?>
-                        <li class="page-item text-danger"><span class="page-link text-danger">...</span></li>
-                    <?php endif ?>
-                    <?php $gap = true;
-                    continue;
-                }
-                $gap = false;
-
-                if ($current_page == $i): ?>
-                    <li class="page-item active ">
-                        <a href="#" class="page-link text-danger">
-                            <?php echo $i; ?>
-                        </a>
-                    </li>
-                <?php else: ?>
-                    <li class="page-item">
-                        <a href="genre.php?genre=<?php echo $category; ?>&page=<?php echo $i; ?>" class="page-link text-danger">
-                            <?php echo $i; ?>
-                        </a>
-                    </li>
+    <?php
+    if ($category != "") {
+        echo "<nav>";
+        echo "<ul class=\"pagination justify-content-center\">";
+        if ($current_page > 1): ?>
+            <li class="page-item">
+                <a href="genre.php?genre=<?php echo $category; ?>&page=<?php echo $current_page - 1 ?>"
+                    class="page-link text-danger">Previous</a>
+            </li>
+        <?php endif ?>
+        <?php
+        // if we have a massive number of page links, we'll obscure
+        // many of these with a gap. In our case, the gap will be an elipsis (...)
+        $gap = false;
+        // The "window" is how many page links on either side of the current page we 
+        // want to receive or see
+        $window = 1;
+        for ($i = 1; $i <= $total_pages; $i++) {
+            if ($i > 1 + $window && $i < $total_pages - $window && abs($i - $current_page) > $window) {
+                if (!$gap): ?>
+                    <li class="page-item text-danger"><span class="page-link text-danger">...</span></li>
                 <?php endif ?>
-            <?php } ?>
-            <?php
+                <?php $gap = true;
+                continue;
+            }
+            $gap = false;
 
-            if ($current_page < $total_pages): ?>
+            if ($current_page == $i): ?>
+                <li class="page-item active ">
+                    <a href="#" class="page-link text-danger">
+                        <?php echo $i; ?>
+                    </a>
+                </li>
+            <?php else: ?>
                 <li class="page-item">
-                    <a href="genre.php?genre=<?php echo $category ?>&page=<?php echo $current_page + 1 ?>"
-                        class="page-link text-danger">Next</a>
+                    <a href="genre.php?genre=<?php echo $category; ?>&page=<?php echo $i; ?>" class="page-link text-danger">
+                        <?php echo $i; ?>
+                    </a>
                 </li>
             <?php endif ?>
+        <?php } ?>
+        <?php
+
+        if ($current_page < $total_pages): ?>
+            <li class="page-item">
+                <a href="genre.php?genre=<?php echo $category ?>&page=<?php echo $current_page + 1 ?>"
+                    class="page-link text-danger">Next</a>
+            </li>
+        <?php endif ?>
         </ul>
-    </nav>
+        </nav>
+    <?php } ?>
+
     <section>
 
     </section>
