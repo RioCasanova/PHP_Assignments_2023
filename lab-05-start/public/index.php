@@ -2,6 +2,7 @@
 <?php include("includes/functions.php"); ?>
 <?php
 
+$sort_headings = isset($_GET['sort']) ? $_GET['sort'] : "";
 $title = "The Comic Chronicler";
 include('includes/header.php');
 
@@ -72,9 +73,9 @@ $records = find_records($per_page, $offset);
             if ($result->num_rows > 0) {
                 echo "\n<table class=\"table\">";
                 echo "\n<tr class=\"text-danger\">";
-                echo "<th scope=\"col\"><a href=\"#\"class=\"text-reset\">Title</a></th>";
-                echo "<th scope=\"col\"><a href=\"#\"class=\"text-reset\">Writer</a></th>";
-                echo "<th scope=\"col\"><a href=\"#\" class=\"text-reset\">Artist</a></th>";
+                echo "<th scope=\"col\"><a href=\"index.php?page=$current_page&sort=title\"class=\"text-reset\">Title</a></th>";
+                echo "<th scope=\"col\"><a href=\"index.php?page=$current_page&sort=writer\"class=\"text-reset\">Writer</a></th>";
+                echo "<th scope=\"col\"><a href=\"index.php?page=$current_page&sort=artist\" class=\"text-reset\">Artist</a></th>";
                 echo "<th scope=\"col\" class=\"text-dark\">Actions</th>";
                 echo "</tr>";
                 while ($row = $result->fetch_assoc()) {

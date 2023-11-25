@@ -8,6 +8,9 @@ function find_records($limit = 0, $offset = 0)
 {
     global $connection;
     $sql = "SELECT id, title, writer, artist FROM lab05_comic_books";
+    if (isset($_GET['sort']) && $_GET['sort'] != "") {
+        $sql .= sort_records();
+    }
     if ($limit > 0) {
         $sql .= " LIMIT " . $limit;
     }
@@ -27,6 +30,14 @@ function count_records()
     return $fetch[0];
 }
 
+function sort_records()
+{
+    global $connection;
+    $sort = isset($_GET['sort']) ? $_GET['sort'] : "";
+
+    $query = " ORDER BY $sort";
+    return $query;
+}
 
 #endregion
 
@@ -72,7 +83,7 @@ function find_by_publisher($publisher)
     $sql = "SELECT id, title, writer, artist, publisher 
             FROM lab05_comic_books 
             WHERE publisher LIKE '%$publisher%'
-            ORDER BY publisher DESC";
+            ORDER BY publisher ASC";
 
     $result = $connection->query($sql);
     return $result;
@@ -100,7 +111,7 @@ function find_by_genre($limit = 0, $offset = 0, $category)
     $sql = "SELECT id, title, writer, artist, genre 
             FROM lab05_comic_books 
             WHERE genre LIKE '%$category%'
-            ORDER BY genre DESC";
+            ORDER BY genre ASC";
 
     if ($limit > 0) {
         $sql .= " LIMIT " . $limit;
@@ -165,6 +176,9 @@ function get_search_results($limit = 0, $offset = 0, $search)
                                                OR year LIKE '%$search%'
                                                OR genre LIKE '%$search%'
                                                OR characters LIKE '%$search%'";
+    if (isset($_GET['sort']) && $_GET['sort'] != "") {
+        $sql .= sort_records();
+    }
     if ($limit > 0) {
         $sql .= " LIMIT " . $limit;
     }

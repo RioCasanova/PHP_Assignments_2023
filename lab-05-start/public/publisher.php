@@ -325,10 +325,10 @@ $offset = $per_page * ($current_page - 1);
                     if ($result->num_rows > 0) {
                         echo "\n<table class=\"table\">";
                         echo "\n<tr class=\"text-danger\">";
-                        echo "<th scope=\"col\"><a href=\"#\"class=\"text-reset\">Title</a></th>";
-                        echo "<th scope=\"col\"><a href=\"#\"class=\"text-reset\">Writer</a></th>";
-                        echo "<th scope=\"col\"><a href=\"#\" class=\"text-reset\">Artist</a></th>";
-                        echo "<th scope=\"col\"><a href=\"#\" class=\"text-reset\">Publisher</a></th>";
+                        echo "<th scope=\"col\">Title</th>";
+                        echo "<th scope=\"col\">Writer</th>";
+                        echo "<th scope=\"col\">Artist</th>";
+                        echo "<th scope=\"col\">Publisher</th>";
                         echo "<th scope=\"col\" class=\"text-dark\">Actions</th>";
                         echo "</tr>";
                         while ($row = $result->fetch_assoc()) {
