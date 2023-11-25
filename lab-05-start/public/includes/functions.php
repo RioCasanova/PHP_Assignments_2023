@@ -180,6 +180,11 @@ function count_records_search()
 }
 
 #endregion
+
+#region ADVANCED SEARCH
+
+#endregion
+
 #region Error Handling
 function handle_database_error($statement)
 {
