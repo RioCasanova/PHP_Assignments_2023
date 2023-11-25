@@ -280,6 +280,11 @@ $offset = $per_page * ($current_page - 1);
             <?php
             // this is our query with the appended offset
             if ($category != "") {
+                echo "<div class=\"row justify-content-center col-md-10 col-lg-8 mt-5 mb-4\">";
+                echo "<h2>Comic Books under: <span class=\"text-danger\">";
+                echo $category;
+                echo "</span></h2>";
+                echo "</div>";
                 $result = find_by_genre($per_page, $offset, $category);
                 if ($connection->error) {
                     echo $connection->$error;

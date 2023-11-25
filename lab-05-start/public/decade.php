@@ -121,10 +121,15 @@ $offset = $per_page * ($current_page - 1);
         ?>
 
         <!-- Table of Records -->
-        <div class="col-md-10 col-lg-8">
+        <div class="col-md-10 col-lg-8 container">
             <?php
             // this is our query with the appended offset
             if ($decade != "") {
+                echo "<div class=\"row justify-content-center col-md-10 col-lg-8 mt-5 mb-4\">";
+                echo "<h2>Comic Books released in the <span class=\"text-danger\">";
+                echo $decade . "0s";
+                echo "</span></h2>";
+                echo "</div>";
                 $result = find_by_decade($per_page, $offset, $decade);
 
                 if ($connection->error) {

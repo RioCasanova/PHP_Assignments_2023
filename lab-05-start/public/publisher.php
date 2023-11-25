@@ -313,6 +313,11 @@ $offset = $per_page * ($current_page - 1);
             <?php
             // this is our query with the appended offset
             if ($publisher != "") {
+                echo "<div class=\"row justify-content-center col-md-10 col-lg-8 mt-5 mb-4\">";
+                echo "<h2>Comic Books released by <span class=\"text-danger\">";
+                echo $publisher;
+                echo "</span></h2>";
+                echo "</div>";
                 $result = find_by_publisher($publisher);
                 if ($connection->error) {
                     echo $connection->$error;
