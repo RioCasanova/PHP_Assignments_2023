@@ -177,7 +177,7 @@ if (isset($_GET['submit-btn'])) {
 
         <?php
 
-        // Results table -- UN-COMMENT THE RAADIO BUTTON
+        // Results table 
         
         $query = "SELECT id, title, writer, artist, genre, publisher, year FROM lab05_comic_books";
 
@@ -217,9 +217,7 @@ if (isset($_GET['submit-btn'])) {
             if ($sort_type != "" && $sort_type != "") {
                 $query .= " ORDER BY $search_by $sort_type";
             }
-            // just for learning and testing, let's see our entire query
-        
-            echo "\n<div class=\"alert alert-info\"><b>Query:</b><br> " . $query . "</div>";
+
 
 
             $result = $connection->query($query);
@@ -227,14 +225,14 @@ if (isset($_GET['submit-btn'])) {
                 echo $connection->error;
             } else {
                 if ($result->num_rows > 0) {
-                    echo "<table  class=\"table table-bordered\">";
-                    echo "<tr class=\"bg-dark text-light\">";
-                    echo "<th scope=\"col\">Title</th>";
-                    echo "<th scope=\"col\">Writer</th>";
-                    echo "<th scope=\"col\">Artist</th>";
-                    echo "<th scope=\"col\">Genre</th>";
-                    echo "<th scope=\"col\">Publisher</th>";
-                    echo "<th scope=\"col\">Year</th>";
+                    echo "<table  class=\"table mt-5\">";
+                    echo "<tr class=\"text-danger\">";
+                    echo "<th scope=\"col\"><a href=\"#\"class=\"text-reset\">Title</a></th>";
+                    echo "<th scope=\"col\"><a href=\"#\" class=\"text-reset\">Writer</a></th>";
+                    echo "<th scope=\"col\"><a href=\"#\" class=\"text-reset\">Artist</a></th>";
+                    echo "<th scope=\"col\"><a href=\"#\" class=\"text-reset\">Genre</a></th>";
+                    echo "<th scope=\"col\"><a href=\"#\" class=\"text-reset\">Publisher</a></th>";
+                    echo "<th scope=\"col\"><a href=\"#\" class=\"text-reset\">Year</a></th>";
                     echo "<th scope=\"col\">View</th>";
                     echo "</tr>";
                     while ($row = $result->fetch_assoc()) {
